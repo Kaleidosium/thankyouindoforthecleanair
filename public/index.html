@@ -180,7 +180,7 @@
 
   <script>
     if (!localStorage.hasOwnProperty("localCount")) {
-      localStorage.setItem("localCount", 0)
+      localStorage.setItem("localCount", 0);
     }
     let count = localStorage.getItem("localCount");
 
@@ -188,7 +188,7 @@
 
     function increaseThanksLocally() {
       document.getElementById("timesUserHasThankedIndonesia").innerHTML = ++count;
-      localStorage.setItem("localCount", count)
+      localStorage.setItem("localCount", count);
     }
   </script>
 </body>
