@@ -27,8 +27,8 @@
 
   <style media="screen">
     body {
+      color: white;
       font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
-      background-color: yellow;
       text-align: center;
       margin: 0;
       padding: 0;
@@ -44,22 +44,22 @@
     }
 
     .flags {
-      height: 150px;
+      height: 125px;
     }
 
     .pattern-one--bg {
       background: url("assets/Pattern1.gif") repeat fixed center;
-      padding: 5rem;
+      padding: 4rem;
     }
 
     .pattern-two--bg {
       background: url("assets/Pattern2.gif") repeat fixed center;
-      padding: 3rem;
+      padding: 2rem;
     }
 
     .pattern-three--bg {
       background: url("assets/Pattern3.gif") repeat fixed center;
-      padding: 5rem;
+      padding: 4rem;
     }
 
     input[type='image'] {
@@ -72,13 +72,11 @@
     }
 
     .thanks--text {
-      color: white;
       font-size: 1.2rem;
     }
 
     .the-pretentious-paragraph {
       font-size: 2rem;
-      color: white;
     }
 
     .blink {
@@ -105,45 +103,40 @@
 
     .thanks--counter::before {
       content: "Indonesia has been thanked ";
-      font-size: 20pt;
-      color: white;
+      font-size: 25pt;
     }
 
     .thanks--counter::after {
-      content: " times";
-      font-size: 20pt;
-      color: white;
+      content: " times so far";
+      font-size: 25pt;
     }
 
     .thanks--counter {
-      font-size: 20pt;
-      color: white;
+      font-size: 25pt;
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <h1>
-      <div class="blink">Thank you Indonesia for the clean air!</div>
-    </h1>
-  </header>
   <div class="pattern-one--bg">
     <img class="flags" src="assets/Singapore.gif">
     <img class="flags" src="assets/Malaysia.gif">
     <img class="flags" src="assets/Indonesia.gif">
 
-  </div>
-
-  <div class="pattern-two--bg">
-    <h2 style="color: white">Click on the button to thank Indonesia!</h2>
-
-
-    <input onclick="increaseThanksLocally()" type="image" class="thanks--increment" src="assets/Button.png">
+    <h1 style="color: yellow; font-size: 35pt;">
+      <div class="blink">Thank you Indonesia for the clean air!</div>
+    </h1>
 
     <div class="thanks--counter">
       ...
     </div>
+  </div>
+
+  <div class="pattern-two--bg">
+    <h2>Click on the button to thank Indonesia!</h2>
+
+
+    <input onclick="increaseThanksLocally()" type="image" class="thanks--increment" src="assets/Button.png">
 
     <p class="thanks--text">You have thanked Indonesia <span id="timesUserHasThankedIndonesia">0</span> time(s)! </p>
   </div>
@@ -159,8 +152,10 @@
   </div>
 
   <footer>
-    <h2>Copyright © <a href="https://twitter.com/altOverflow">Dania Rifki</a></h2>
-    <h3><a href="https://github.com/IamRifki/thankyouindoforthecleanair">Source code here</a></h3>
+    <div class="pattern-two--bg">
+      <h2>Copyright © <a href="https://twitter.com/altOverflow">Dania Rifki</a></h2>
+      <h3><a href="https://github.com/IamRifki/thankyouindoforthecleanair">Source code here</a></h3>
+    </div>
   </footer>
 
   <script>
