@@ -87,23 +87,19 @@
 
     @keyframes blinkingText {
       0% {
-        color: inherit;
+        opacity: 1;
       }
 
       49% {
-        color: inherit;
+        opacity: 1;
       }
 
-      60% {
-        color: transparent;
-      }
-
-      99% {
-        color: transparent;
+      50% {
+        opacity: 0;
       }
 
       100% {
-        color: inherit;
+        opacity: 0;
       }
     }
 
@@ -141,7 +137,7 @@
 
   <div class="pattern-two--bg">
     <h2 style="color: white">Click on the button to thank Indonesia!</h2>
-    
+
 
     <input onclick="increaseThanksLocally()" type="image" class="thanks--increment" src="assets/Button.png">
 
@@ -185,11 +181,11 @@
   <script>
     if (!localStorage.hasOwnProperty("localCount")) {
       localStorage.setItem("localCount", 0)
-    } 
+    }
     let count = localStorage.getItem("localCount");
 
     document.getElementById("timesUserHasThankedIndonesia").innerHTML = count;
-    
+
     function increaseThanksLocally() {
       document.getElementById("timesUserHasThankedIndonesia").innerHTML = ++count;
       localStorage.setItem("localCount", count)
