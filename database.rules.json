@@ -1,0 +1,11 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "incremental_counter": {
+      ".validate": "newData.isNumber() && newData.val() === data.val() + 1",
+      ".read": true,           
+      ".write": true
+    } 
+  }
+}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thank you Indonesia!</title>
+  <link rel="shortcut-icon" href="favicon.ico">
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/7.19.1/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/7.19.1/firebase-database.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Thank you Indonesia!">
+  <meta property="og:description" content="Thank you Indonesia for the clean air you brought over!">
+  <meta property="og:image" content="https://thankyouindoforthecleanair.web.app/assets/Indonesia.gif">
+
+  <meta name="twitter:creator" content="IamRifki">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Thank you Indonesia!">
+  <meta name="twitter:description" content="Thank you Indonesia for the clean air you brought over!">
+  <meta name="twitter:image" content="https://thankyouindoforthecleanair.web.app/assets/Indonesia.gif">
+
+  <style media="screen">
+    body {
+      font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+      background-color: yellow;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .flags {
+      height: 150px;
+    }
+
+    .pattern-one--bg {
+      background: url("assets/Pattern1.gif") repeat fixed center;
+      padding: 5rem;
+    }
+
+    .pattern-two--bg {
+      background: url("assets/Pattern2.gif") repeat fixed center;
+      padding: 3rem;
+    }
+
+    .pattern-three--bg {
+      background: url("assets/Pattern3.gif") repeat fixed center;
+      padding: 5rem;
+    }
+
+    input[type='image'] {
+      padding-top: 10px;
+      width: 80px;
+    }
+
+    .section-three-images {
+      margin-bottom: 1rem;
+    }
+
+    .thanks--text {
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .the-pretentious-paragraph {
+      font-size: 2rem;
+      color: white;
+    }
+
+    .blink {
+      animation: blinkingText 1.2s infinite;
+    }
+
+    @keyframes blinkingText {
+      0% {
+        color: inherit;
+      }
+
+      49% {
+        color: inherit;
+      }
+
+      60% {
+        color: transparent;
+      }
+
+      99% {
+        color: transparent;
+      }
+
+      100% {
+        color: inherit;
+      }
+    }
+
+    .thanks--counter::before {
+      content: "Indonesia has been thanked ";
+      font-size: 20pt;
+      color: white;
+    }
+
+    .thanks--counter::after {
+      content: " times";
+      font-size: 20pt;
+      color: white;
+    }
+
+    .thanks--counter {
+      font-size: 20pt;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>
+      <div class="blink">Thank you Indonesia for the clean air!</div>
+    </h1>
+  </header>
+  <div class="pattern-one--bg">
+    <img class="flags" src="assets/Singapore.gif">
+    <img class="flags" src="assets/Malaysia.gif">
+    <img class="flags" src="assets/Indonesia.gif">
+
+  </div>
+
+  <div class="pattern-two--bg">
+    <div class="thanks--counter">
+      ...
+    </div>
+
+    <input onclick="increaseThanksLocally()" type="image" class="thanks--increment" src="assets/Button.png">
+    <br>
+
+    <p class="thanks--text">You have thanked Indonesia <span id="timesUserHasThankedIndonesia">0</span> time(s)! </p>
+  </div>
+
+  <div class="pattern-three--bg">
+    <img class="section-three-images" src="assets/Siren.gif"> <br>
+    <img class="section-three-images" src="assets/Flowers.gif"> <br>
+    <p class="the-pretentious-paragraph">
+      Have you ever wanted to thank Indonesia for the times where Malaysial and Singapoor have clean air instead of the
+      Haze from Indochadia? well, this is the site you've been searching for!
+    </p>
+    <img class="section-three-images" style="height: 300px;" src="assets/ThumbsUp.jpg">
+  </div>
+
+  <footer>
+    <h2>Copyright (c) <a href="https://twitter.com/altOverflow">Dania Rifki</a>.</h2>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const counter = document.getElementsByClassName("thanks--counter")[0];
+      const counterRef = firebase.database().ref("incremental_counter");
+      counterRef.on("value", snapshot => {
+        counter.textContent = snapshot.val();
+      });
+
+      const incrementButton = document.getElementsByClassName("thanks--increment")[0];
+      incrementButton.addEventListener("click", () => {
+        counterRef.set(firebase.database.ServerValue.increment(1));
+      }, false);
+    });
+  </script>
+
+  <script>
+    if (!localStorage.hasOwnProperty("localCount")) {
+      localStorage.setItem("localCount", 0)
+    } 
+    let count = localStorage.getItem("localCount");
+
+    document.getElementById("timesUserHasThankedIndonesia").innerHTML = count;
+    
+    function increaseThanksLocally() {
+      document.getElementById("timesUserHasThankedIndonesia").innerHTML = ++count;
+      localStorage.setItem("localCount", count)
+    }
+  </script>
+</body>
+
+</html>
