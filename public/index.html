@@ -14,6 +14,11 @@
   <!-- initialize the SDK after all desired features are loaded -->
   <script defer src="/__/firebase/init.js"></script>
 
+  <script defer src="//www.midijs.net/lib/midi.js"></script>
+
+  <script defer src="js/scripts.js"></script>
+  <link href="css/styles.css" rel="stylesheet">
+
   <meta property="og:type" content="website">
   <meta property="og:title" content="Thank you Indonesia!">
   <meta property="og:description" content="Thank you Indonesia for the clean air you brought over!">
@@ -25,104 +30,9 @@
   <meta name="twitter:description" content="Thank you Indonesia for the clean air you brought over!">
   <meta name="twitter:image" content="https://thankyouindoforthecleanair.web.app/assets/JusufKalla.jpg">
 
-  <style media="screen">
-    body {
-      color: white;
-      font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    .flags {
-      height: 125px;
-    }
-
-    .pattern-one--bg {
-      background: url("assets/Pattern1.gif") repeat fixed center;
-      padding: 4rem;
-    }
-
-    .pattern-two--bg {
-      background: url("assets/Pattern2.gif") repeat fixed center;
-      padding: 2rem;
-    }
-
-    .pattern-three--bg {
-      background: url("assets/Pattern3.gif") repeat fixed center;
-      padding: 4rem;
-    }
-
-    footer {
-      background: url("assets/Pattern1.gif") repeat fixed center;
-      padding: 1rem;
-    }
-
-    input[type='image'] {
-      padding-top: 10px;
-      width: 150px;
-    }
-
-    .section-three-images {
-      margin-bottom: 1rem;
-    }
-
-    .thanks--text {
-      font-size: 1.2rem;
-    }
-
-    .the-pretentious-paragraph {
-      font-size: 1.7rem;
-    }
-
-    .blink {
-      animation: blinkingText 1.2s infinite;
-    }
-
-    @keyframes blinkingText {
-      0% {
-        opacity: 1;
-      }
-
-      49% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0;
-      }
-
-      100% {
-        opacity: 0;
-      }
-    }
-
-    .thanks--counter::before {
-      content: "Indonesia has been thanked ";
-      font-size: 25pt;
-    }
-
-    .thanks--counter::after {
-      content: " times so far";
-      font-size: 25pt;
-    }
-
-    .thanks--counter {
-      font-size: 25pt;
-    }
-  </style>
 </head>
 
-<body>
+<body">
   <div class="pattern-one--bg">
     <img class="flags" src="assets/Singapore.gif">
     <img class="flags" src="assets/Malaysia.gif">
@@ -140,10 +50,31 @@
   <div class="pattern-two--bg">
     <h2>Click on the button to thank Indonesia!</h2>
 
-
-    <input onclick="increaseThanksLocally()" type="image" class="thanks--increment" src="assets/Button.png">
+    <input onclick="increaseThanksLocally();" id="big-red-button" type="image" class="thanks--increment"
+      src="assets/Button.png">
 
     <h3 class="thanks--text">You have thanked Indonesia <span id="timesUserHasThankedIndonesia">0</span> time(s)!</h3>
+    <h4 id="disable--audio" style="color: blue; display: none; cursor: pointer;">Click here to <span
+        id="state-audio--text">disable</span> audio</h4>
+
+    <div class="flex-container space-between">
+      <div id="jusuf-left" style="justify-content: flex-center;">
+        <div class="jusuf-box">
+          <img id="jusuf" src="assets/JusufBubble.png">
+          <div class="jusuf-text">
+            <h2 class="jusuf--quotes">...</h2>
+          </div>
+        </div>
+      </div>
+      <div id="jusuf-right" style="justify-content: flex-center;">
+        <div class="jusuf-box reversed">
+          <img id="jusuf" src="assets/JusufBubble.png">
+          <div class="jusuf-text">
+            <h2 class="jusuf--quotes">...</h2>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="pattern-three--bg">
@@ -151,48 +82,27 @@
     <img class="section-three-images" src="assets/Flowers.gif"> <br>
     <p class="the-pretentious-paragraph">
       Have you ever wanted to thank Indonesia for the times where Malaysial and Singapoor get clean air instead of the
-      Haze from Indochadia? well, this is the site you've been searching for!
+      Haze from Indochadia? well, this is the site you"ve been searching for!
     </p>
     <p class="the-pretentious-paragraph">
       Special thanks to JuJu (Jusuf Kalla) for making this site possible. Singaporeans and Malaysians very appreciate
       your comments about the haze and about them.
     </p>
-    <img class="section-three-images" style="height: 300px;" src="assets/ThumbsUp.jpg">
+    <img style="height: 300px;" src="assets/ThumbsUp.jpg">
+    <div class="flex-container space-between">
+      <div style="justify-content: flex-center;">
+        <img class="reversed" src="assets/Angel.gif">
+      </div>
+      <div style="justify-content: flex-center;">
+        <img src="assets/Angel.gif">
+      </div>
+    </div>
   </div>
 
   <footer>
     <h2>Copyright © <a href="https://twitter.com/altOverflow">Dania Rifki</a></h2>
     <h3><a href="https://github.com/IamRifki/thankyouindoforthecleanair">Source code here</a></h3>
   </footer>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const counter = document.getElementsByClassName("thanks--counter")[0];
-      const counterRef = firebase.database().ref("incremental_counter");
-      counterRef.on("value", snapshot => {
-        counter.textContent = snapshot.val();
-      });
-
-      const incrementButton = document.getElementsByClassName("thanks--increment")[0];
-      incrementButton.addEventListener("click", () => {
-        counterRef.set(firebase.database.ServerValue.increment(1));
-      }, false);
-    });
-  </script>
-
-  <script>
-    if (!localStorage.hasOwnProperty("localCount")) {
-      localStorage.setItem("localCount", 0);
-    }
-    let count = localStorage.getItem("localCount");
-
-    document.getElementById("timesUserHasThankedIndonesia").innerHTML = count;
-
-    function increaseThanksLocally() {
-      document.getElementById("timesUserHasThankedIndonesia").innerHTML = ++count;
-      localStorage.setItem("localCount", count);
-    }
-  </script>
 </body>
 
 </html>

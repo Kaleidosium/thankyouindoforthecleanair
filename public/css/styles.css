@@ -1,0 +1,168 @@
+@import url("https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap");
+
+body {
+  color: white;
+  font-family: "Comic Neue", "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.flags {
+  height: 125px;
+}
+
+.pattern-one--bg {
+  background: url("../assets/Pattern1.gif") repeat fixed center;
+  padding: 4rem;
+}
+
+.pattern-two--bg {
+  background: url("../assets/Pattern2.gif") repeat fixed center;
+  padding: 0;
+  padding-top: 2rem;
+}
+
+.pattern-three--bg {
+  background: url("../assets/Pattern3.gif") repeat fixed center;
+  padding: 4rem;
+}
+
+.pattern-four--bg {
+  background: url("../assets/Pattern4.gif") repeat fixed center;
+  padding: 2rem;
+}
+
+footer {
+  background: url("../assets/Pattern1.gif") repeat fixed center;
+  padding: 1rem;
+}
+
+input[type="image"] {
+  padding-top: 10px;
+  width: 150px;
+}
+
+.section-three-images {
+  margin-bottom: 1rem;
+}
+
+.thanks--text {
+  font-size: 1.2rem;
+}
+
+.the-pretentious-paragraph {
+  font-size: 1.7rem;
+}
+
+.flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.blink {
+  animation: blinkingText 1.2s infinite;
+}
+
+@keyframes blinkingText {
+  0% {
+    opacity: 1;
+  }
+
+  49% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.comments-box {
+  padding: 0px;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.comments-box--text {
+  font-size: 18pt;
+  padding: 10px;
+}
+
+.jusuf-box {
+  position: relative;
+  display: inline-block;
+  /* Make the width of box same as image */
+}
+
+.jusuf-box .jusuf-text {
+  font-size: small;
+  position: absolute;
+  z-index: 999;
+  margin: 0 auto;
+  left: 20%;
+  right: 0;
+  top: 15%;
+  /* Adjust this value to move the positioned div up and down */
+  text-align: center;
+  width: 60%;
+  /* Set the width of the positioned div */
+  color: black;
+}
+
+#jusuf {
+  height: 300px;
+}
+
+#jusuf-right,
+#jusuf-left {
+  margin-bottom: -4px;
+  padding-bottom: -4px;
+}
+
+.reversed {
+  transform: scaleX(-1);
+}
+
+.thanks--counter::before {
+  content: "Indonesia has been thanked ";
+  font-size: 25pt;
+}
+
+.thanks--counter::after {
+  content: " times so far";
+  font-size: 25pt;
+}
+
+.thanks--counter {
+  font-size: 25pt;
+}
+
+fieldset {
+  border: 5px dashed white;
+}
+
+legend {
+  color: white;
+  padding: 5px 10px;
+}
