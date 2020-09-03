@@ -120,7 +120,7 @@ input[type="image"] {
   position: absolute;
   z-index: 999;
   margin: 0 auto;
-  left: 20%;
+  left: 0;
   right: 0;
   top: 15%;
   /* Adjust this value to move the positioned div up and down */
