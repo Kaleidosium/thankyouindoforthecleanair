@@ -248,7 +248,7 @@
       const counter = document.getElementsByClassName("thanks--counter")[0];
       const counterRef = firebase.database().ref("incremental_counter");
       counterRef.on("value", (snapshot) => {
-        counter.textContent = snapshot.val();
+        counter.textContent = snapshot.val().toLocaleString();
       });
 
       const incrementButton = document.getElementsByClassName(
