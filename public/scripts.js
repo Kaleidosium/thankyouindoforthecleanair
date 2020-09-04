@@ -51,7 +51,7 @@ let isAudioEnabled = true;
 document.getElementById("big-red-button").addEventListener(
   "click",
   function (event) {
-    MIDIjs.play("../assets/music.mid");
+    MIDIjs.play("/assets/music.mid");
     document.getElementById("disable--audio").style.display = "block";
   },
   { once: true }
