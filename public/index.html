@@ -273,7 +273,8 @@
     document.getElementById("timesUserHasThankedIndonesia").innerHTML = count.toLocaleString();
 
     function increaseThanksLocally() {
-      document.getElementById("timesUserHasThankedIndonesia").innerHTML = ++count.toLocaleString();
+      ++count;
+      document.getElementById("timesUserHasThankedIndonesia").innerHTML = count.toLocaleString();
       localStorage.setItem("localCount", count);
     }
 
