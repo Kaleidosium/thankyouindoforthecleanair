@@ -86,6 +86,10 @@
       font-size: 1.7rem;
     }
 
+    .the-pretentious-quote {
+      font-size: 2rem;
+    }
+
     .flex-container {
       padding: 0;
       margin: 0;
@@ -193,7 +197,7 @@
 
     <h3 class="thanks--text">You have thanked Indonesia <span id="timesUserHasThankedIndonesia">0</span> time(s)!</h3>
     <h4 id="disable--audio" style="color: blue; display: none; cursor: pointer;">Click here to <span
-        id="state-audio--text">disable</span> audio</h4>
+        id="state-audio--text">mute</span> music</h4>
 
     <div class="flex-container space-between">
       <div id="jusuf-left" style="justify-content: flex-center;">
@@ -219,17 +223,14 @@
     <img class="section-three-images" src="assets/Siren.gif"> <br>
     <img class="section-three-images" src="assets/Flowers.gif"> <br>
     <p class="the-pretentious-paragraph">
-      Special thanks to JuJu (Jusuf Kalla) for making this site possible. Singaporeans and Malaysians very appreciate
-      your comments reminding them they need to be grateful for the clean air!
+      Special thanks to Former Indonesian Vice-President Jusuf Kalla (Juju) for making this site possible. Singaporeans
+      and Malaysians very appreciate
+      your comments reminding them they need to be grateful for the generously provided clean air!
     </p>
-    <p class="the-pretentious-paragraph">
-      This website is a relaunch of <a
-        href="https://coconuts.co/jakarta/news/grateful-singaporeans-set-site-thank-indonesia-11-months-clean-air-they-get-us-year/">the
-        original thankyouindoforthecleanair.com website which launched in 2015</a> amid
-      comments made by Then-Indonesian Vice President Jusuf Kalla about the haze crisis in Singapore. <a
-        href="https://mothership.sg/2019/09/thank-indonesia-fresh-air-website-closed/">Sadly, the
-        original website went dark around 2019</a>. This relaunched
-      version was made by Indonesian Dania Rifki in her spare time, Thank you for visiting!
+    <p class="the-pretentious-quote">
+      <i>“For 11 months, they (our neighbours) enjoyed nice air from Indonesia and they never thanked us. They have
+        suffered because of the haze for one month and they get upset.”</i> - Former Indonesian Vice-President Jusuf
+      Kalla (Juju)
     </p>
     <img style="height: 300px;" src="assets/ThumbsUp.jpg">
     <div class="flex-container space-between">
@@ -240,6 +241,15 @@
         <img src="assets/Angel.gif">
       </div>
     </div>
+    <p>
+      This website is a relaunch of <a
+        href="https://coconuts.co/jakarta/news/grateful-singaporeans-set-site-thank-indonesia-11-months-clean-air-they-get-us-year/">the
+        original thankyouindoforthecleanair.com website which launched in 2015</a> amid
+      comments made by Juju about the haze crisis in Singapore. <a
+        href="https://mothership.sg/2019/09/thank-indonesia-fresh-air-website-closed/">Sadly, the
+        original website went dark around 2019</a>. This relaunched
+      version was made by Indonesian Dania Rifki in her spare time, Thank you for visiting!
+    </p>
   </div>
 
   <script>
@@ -290,6 +300,13 @@
         document.getElementById("disable--audio").style.display = "block";
       },
       { once: true }
+    );
+
+    document.getElementById("big-red-button").addEventListener(
+      "click",
+      function (event) {
+        new Audio("/assets/thankyou.m4a").play();
+      },
     );
 
     document
