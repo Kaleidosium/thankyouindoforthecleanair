@@ -315,11 +315,11 @@
         if (isAudioEnabled) {
           isAudioEnabled = false;
           MIDIjs.pause();
-          document.getElementById("state-audio--text").innerHTML = "enable";
+          document.getElementById("state-audio--text").innerHTML = "unmute";
         } else {
           isAudioEnabled = true;
           MIDIjs.resume();
-          document.getElementById("state-audio--text").innerHTML = "disable";
+          document.getElementById("state-audio--text").innerHTML = "mute";
         }
       });
 
