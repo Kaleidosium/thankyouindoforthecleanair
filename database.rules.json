@@ -3,9 +3,8 @@
     ".read": false,
     ".write": false,
     "incremental_counter": {
-      ".validate": "newData.isNumber() && newData.val() === data.val() + 1",
-      ".read": true,           
-      ".write": true
+      ".read": true,
+      ".write": "newData.exists() && newData.isNumber() && ((!data.exists() && newData.val() === 1) || (newData.val() === data.val() + 1))"
     } 
   }
 }

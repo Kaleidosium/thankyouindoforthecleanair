@@ -7,12 +7,15 @@
   <title>Thank you Indonesia!</title>
   <link rel="shortcut-icon" href="favicon.ico">
 
-  <!-- update the version number as needed -->
-  <script defer src="/__/firebase/8.10.1/firebase-app.js"></script>
-  <!-- include only the Firebase features as you need -->
-  <script defer src="/__/firebase/8.10.1/firebase-database.js"></script>
-  <!-- initialize the SDK after all desired features are loaded -->
-  <script defer src="/__/firebase/init.js"></script>
+  <!-- Firebase Modular SDK via import map -->
+  <script type="importmap">
+    {
+      "imports": {
+        "firebase/app": "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js",
+        "firebase/database": "https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js"
+      }
+    }
+  </script>
 
   <script defer src="https://www.midijs.net/lib/midi.js"></script>
 
@@ -174,7 +177,7 @@
   </style>
 </head>
 
-<body">
+<body>
   <div class="pattern-one--bg">
     <img class="flags" src="assets/Singapore.gif">
     <img class="flags" src="assets/Malaysia.gif">
@@ -192,8 +195,7 @@
   <div class="pattern-two--bg">
     <h2>Click on the button to thank Indonesia!</h2>
 
-    <input onclick="increaseThanksLocally();" id="big-red-button" type="image" class="thanks--increment"
-      src="assets/Button.png">
+    <input id="big-red-button" type="image" class="thanks--increment" src="assets/Button.png">
 
     <h3 class="thanks--text">You have thanked Indonesia <span id="timesUserHasThankedIndonesia">0</span> time(s)!</h3>
     <h4 id="disable--audio" style="color: blue; display: none; cursor: pointer;">Click here to <span
@@ -254,111 +256,140 @@
     </p>
   </div>
 
-  <script>
-    /* Global Thanks Counter Tracker */
+  <script type="module">
+    import { initializeApp } from 'firebase/app';
+    import { getDatabase, ref, onValue, runTransaction } from 'firebase/database';
 
-    document.addEventListener("DOMContentLoaded", function () {
-      const counter = document.getElementsByClassName("thanks--counter")[0];
-      const counterRef = firebase.database().ref("incremental_counter");
-      counterRef.on("value", (snapshot) => {
-        counter.textContent = snapshot.val().toLocaleString();
-      });
+    const firebaseConfig = {
 
-      const incrementButton = document.getElementsByClassName(
-        "thanks--increment"
-      )[0];
-      incrementButton.addEventListener(
-        "click",
-        () => {
-          counterRef.set(firebase.database.ServerValue.increment(1));
-        },
-        false
-      );
+      apiKey: "AIzaSyA1hciiiNxGqnf8OGfOn_706-A7XEyWpyg",
+
+      authDomain: "thankyouindoforthecleanair.firebaseapp.com",
+
+      databaseURL: "https://thankyouindoforthecleanair.firebaseio.com",
+
+      projectId: "thankyouindoforthecleanair",
+
+      storageBucket: "thankyouindoforthecleanair.firebasestorage.app",
+
+      messagingSenderId: "202426334002",
+
+      appId: "1:202426334002:web:94db24c6ca4e633b10b52b"
+
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    /* --- Global Thanks Counter Tracker --- */
+
+    const counterElement = document.querySelector(".thanks--counter");
+    const counterRef = ref(database, "incremental_counter");
+    const incrementButton = document.getElementById("big-red-button");
+
+    // Realtime Listener
+    onValue(counterRef, (snapshot) => {
+      const val = snapshot.val() || 0;
+      counterElement.textContent = val.toLocaleString();
     });
 
-    /* Local Thanks Counter Tracker */
-
-    if (!localStorage.hasOwnProperty("localCount")) {
-      localStorage.setItem("localCount", 0);
+    // Increment Logic (Using Transaction)
+    function handleGlobalIncrement() {
+      runTransaction(counterRef, (currentCount) => {
+        // If currentCount is null (doesn't exist), start at 0, then add 1
+        return (currentCount || 0) + 1;
+      }).catch((error) => {
+        console.log("Transaction failed: ", error);
+        // Optional: You could alert the user "Check your internet!"
+      });
     }
-    let count = localStorage.getItem("localCount");
 
-    document.getElementById("timesUserHasThankedIndonesia").innerHTML = count.toLocaleString();
+    /* --- Local Thanks Counter Tracker --- */
+
+    if (!localStorage.getItem("localCount")) {
+      localStorage.setItem("localCount", "0");
+    }
+
+    // Note: localStorage stores strings, so we parse it to a number
+    let localCount = parseInt(localStorage.getItem("localCount"), 10);
+
+    const localCounterDisplay = document.getElementById("timesUserHasThankedIndonesia");
+    localCounterDisplay.innerHTML = localCount.toLocaleString();
 
     function increaseThanksLocally() {
-      ++count;
-      document.getElementById("timesUserHasThankedIndonesia").innerHTML = count.toLocaleString();
-      localStorage.setItem("localCount", count);
+      localCount++;
+      localCounterDisplay.innerHTML = localCount.toLocaleString();
+      localStorage.setItem("localCount", localCount);
     }
 
-    /* Play Music */
+    /* --- Audio Setup --- */
+    // Create the audio object once at the top
+    const thankYouSound = new Audio("/assets/thankyou.m4a");
 
+    /* --- Music & Audio Logic --- */
+
+    let musicStarted = false;
     let isAudioEnabled = true;
 
-    document.getElementById("big-red-button").addEventListener(
-      "click",
-      function (event) {
+    function playMusicOnce() {
+      if (!musicStarted) {
         MIDIjs.play("/assets/music.mid");
         document.getElementById("disable--audio").style.display = "block";
-      },
-      { once: true }
-    );
+        musicStarted = true;
+      }
+    }
 
-    document.getElementById("big-red-button").addEventListener(
-      "click",
-      function (event) {
-        new Audio("/assets/thankyou.m4a").play();
-      },
-    );
+    incrementButton.addEventListener("click", () => {
+      // 1. Update Global Firebase
+      handleGlobalIncrement();
+      // 2. Update Local Storage
+      increaseThanksLocally();
+      // 3. Play Music (if first click)
+      playMusicOnce();
+      // 4. Play Audio Effect
+      // Clone the node so users can overlap sounds (spam click!) without cutting off the previous one
+      thankYouSound.cloneNode(true).play();
+      // 5. Generate Random Quote
+      generateQuote();
+    });
 
-    document
-      .getElementById("disable--audio")
-      .addEventListener("click", function (event) {
-        if (isAudioEnabled) {
-          isAudioEnabled = false;
-          MIDIjs.pause();
-          document.getElementById("state-audio--text").innerHTML = "unmute";
-        } else {
-          isAudioEnabled = true;
-          MIDIjs.resume();
-          document.getElementById("state-audio--text").innerHTML = "mute";
-        }
-      });
+    document.getElementById("disable--audio").addEventListener("click", function () {
+      if (isAudioEnabled) {
+        isAudioEnabled = false;
+        MIDIjs.pause();
+        document.getElementById("state-audio--text").innerHTML = "unmute";
+      } else {
+        isAudioEnabled = true;
+        MIDIjs.resume();
+        document.getElementById("state-audio--text").innerHTML = "mute";
+      }
+    });
 
-    /* Jusuf Kalla Quotes */
+    /* --- Jusuf Kalla Quotes --- */
 
     const responses = [
-      "Ju-Suf Power!",
-      "Kopi, Tea or Me?",
-      "Kalla Thank you!",
-      "Steady brudder!",
-      "I rock!",
-      "I heart you!",
-      "No worries Buddy!",
-      "*Like*",
-      "That's alright *smiles*",
-      "Indonesia STRONK",
-      "Booyah!",
+      "Ju-Suf Power!", "Kopi, Tea or Me?", "Kalla Thank you!",
+      "Steady brudder!", "I rock!", "I heart you!",
+      "No worries Buddy!", "*Like*", "That's alright *smiles*",
+      "Indonesia STRONK", "Booyah!",
     ];
 
-    document
-      .getElementById("big-red-button")
-      .addEventListener("click", function (event) {
-        const responseText =
-          responses[Math.floor(Math.random() * responses.length)];
-        document.getElementsByClassName(
-          "jusuf--quotes"
-        )[0].innerHTML = responseText;
-        document.getElementsByClassName(
-          "jusuf--quotes"
-        )[1].innerHTML = responseText;
-      });
+    function generateQuote() {
+      const responseText = responses[Math.floor(Math.random() * responses.length)];
+      const quoteElements = document.getElementsByClassName("jusuf--quotes");
+
+      // Loop through all elements with this class (you have 2 bubbles)
+      for (let el of quoteElements) {
+        el.innerHTML = responseText;
+      }
+    }
   </script>
 
   <footer>
     <h2>This website was made by <a href="https://kaleidosium.github.io">Dania Rifki</a></h2>
     <h3><a href="https://github.com/Kaleidosium/thankyouindoforthecleanair">Source code here</a></h3>
   </footer>
-  </body>
+</body>
 
 </html>
