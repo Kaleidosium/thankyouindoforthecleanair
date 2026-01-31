@@ -17,7 +17,6 @@
     }
   </script>
 
-  <script defer src="https://www.midijs.net/lib/midi.js"></script>
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Thank you Indonesia!">
@@ -199,8 +198,6 @@
     <input id="big-red-button" type="image" class="thanks--increment" src="assets/Button.png">
 
     <h3 class="thanks--text">You have thanked Indonesia <span id="timesUserHasThankedIndonesia">0</span> time(s)!</h3>
-    <h4 id="disable--audio" style="color: blue; display: none; cursor: pointer;">Click here to <span
-        id="state-audio--text">mute</span> music</h4>
 
     <div class="flex-container space-between">
       <div id="jusuf-left" style="justify-content: flex-center;">
@@ -328,43 +325,16 @@
     // Create the audio object once at the top
     const thankYouSound = new Audio("/assets/thankyou.m4a");
 
-    /* --- Music & Audio Logic --- */
-
-    let musicStarted = false;
-    let isAudioEnabled = true;
-
-    function playMusicOnce() {
-      if (!musicStarted) {
-        MIDIjs.play("/assets/music.mid");
-        document.getElementById("disable--audio").style.display = "block";
-        musicStarted = true;
-      }
-    }
-
     incrementButton.addEventListener("click", () => {
       // 1. Update Global Firebase
       handleGlobalIncrement();
       // 2. Update Local Storage
       increaseThanksLocally();
-      // 3. Play Music (if first click)
-      playMusicOnce();
-      // 4. Play Audio Effect
+      // 3. Play Audio Effect
       // Clone the node so users can overlap sounds (spam click!) without cutting off the previous one
       thankYouSound.cloneNode(true).play();
-      // 5. Generate Random Quote
+      // 4. Generate Random Quote
       generateQuote();
-    });
-
-    document.getElementById("disable--audio").addEventListener("click", function () {
-      if (isAudioEnabled) {
-        isAudioEnabled = false;
-        MIDIjs.pause();
-        document.getElementById("state-audio--text").innerHTML = "unmute";
-      } else {
-        isAudioEnabled = true;
-        MIDIjs.resume();
-        document.getElementById("state-audio--text").innerHTML = "mute";
-      }
     });
 
     /* --- Jusuf Kalla Quotes --- */
