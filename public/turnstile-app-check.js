@@ -54,7 +54,9 @@ export function createTurnstileProvider(
     "expired-callback": () =>
       rejectChallenge?.(new Error("The browser check expired. Try again.")),
     "timeout-callback": () =>
-      rejectChallenge?.(new Error("The browser check took too long. Try again.")),
+      rejectChallenge?.(
+        new Error("The browser check took too long. Try again."),
+      ),
   });
 
   return {
@@ -69,7 +71,10 @@ export function createTurnstileProvider(
             resolveChallenge = resolve;
             rejectChallenge = reject;
             timer = setTimeout(
-              () => reject(new Error("The browser check took too long. Try again.")),
+              () =>
+                reject(
+                  new Error("The browser check took too long. Try again."),
+                ),
               timeoutMillis,
             );
             turnstile.execute(widgetId);

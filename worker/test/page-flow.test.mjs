@@ -17,7 +17,12 @@ const source = (
 ).replace(/^\s*import\s+[^;]+;$/gm, "");
 const flush = () => new Promise(setImmediate);
 
-async function page({ storage = new Map(), locks, storageError, writeError } = {}) {
+async function page({
+  storage = new Map(),
+  locks,
+  storageError,
+  writeError,
+} = {}) {
   const elements = new Map();
   const element = (id) => {
     if (!elements.has(id))
@@ -109,7 +114,9 @@ async function page({ storage = new Map(), locks, storageError, writeError } = {
       },
     },
     window,
-    navigator: { locks: locks ?? { request: async (_name, update) => update() } },
+    navigator: {
+      locks: locks ?? { request: async (_name, update) => update() },
+    },
     Audio: class {
       cloneNode() {
         return this;
@@ -261,7 +268,8 @@ test("failed verification opens no database connection and can be retried", asyn
 for (const failure of ["storageError", "writeError"]) {
   test(`${failure} keeps successful global saves usable with a session count`, async () => {
     const { state, element, click, storageChanged } = await page({
-      storage: new Map([["localCount", "0"]]), [failure]: true,
+      storage: new Map([["localCount", "0"]]),
+      [failure]: true,
     });
     state.tokens[0].resolve({ token: "verified" });
     await flush();
@@ -271,7 +279,10 @@ for (const failure of ["storageError", "writeError"]) {
       state.writes.at(-1).resolve();
       await save;
       storageChanged();
-      assert.equal(element("timesUserHasThankedIndonesia").textContent, String(count));
+      assert.equal(
+        element("timesUserHasThankedIndonesia").textContent,
+        String(count),
+      );
       assert.equal(element("verification-retry").hidden, true);
       assert.equal(element("big-red-button").disabled, false);
       assert.equal(state.offline, false);
@@ -310,7 +321,10 @@ test("concurrent clicks in two tabs preserve every personal increment and sync d
       return pending;
     },
   };
-  const tabs = await Promise.all([page({ storage, locks }), page({ storage, locks })]);
+  const tabs = await Promise.all([
+    page({ storage, locks }),
+    page({ storage, locks }),
+  ]);
   for (const tab of tabs) {
     tab.state.tokens[0].resolve({ token: "verified" });
     await flush();
@@ -334,14 +348,20 @@ test("an offline pending save shows its state and cannot queue a second incremen
   const save = click();
   assert.equal(element("verification-status").textContent, "Saving...");
   state.receiveConnection(false);
-  assert.match(element("verification-status").textContent, /waiting for a connection/i);
+  assert.match(
+    element("verification-status").textContent,
+    /waiting for a connection/i,
+  );
   await click();
   assert.equal(state.writes.length, 1);
   state.receiveConnection(true);
   assert.equal(element("verification-status").textContent, "Saving...");
   state.writes[0].resolve();
   await save;
-  assert.equal(element("verification-status").textContent, "You can thank Indonesia now.");
+  assert.equal(
+    element("verification-status").textContent,
+    "You can thank Indonesia now.",
+  );
   state.receiveConnection(false);
   await click();
   assert.equal(state.writes.length, 1);
@@ -351,7 +371,11 @@ test("invalid stored counts and unavailable Web Locks recover without failing th
   for (const value of ["NaN", "-2", "1.5", "9007199254740992"]) {
     const { state, storage, element, click } = await page({
       storage: new Map([["localCount", value]]),
-      locks: { request: async () => { throw new Error("Locks unavailable"); } },
+      locks: {
+        request: async () => {
+          throw new Error("Locks unavailable");
+        },
+      },
     });
     assert.equal(element("timesUserHasThankedIndonesia").textContent, "0");
     state.tokens[0].resolve({ token: "verified" });

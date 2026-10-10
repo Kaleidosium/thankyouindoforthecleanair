@@ -43,14 +43,19 @@ const incrementButton = document.getElementById("big-red-button");
 
 function updateControls() {
   incrementButton.disabled =
-    verificationState !== "verified" || !counterLoaded || !connected ||
-    !!counterError || incrementPending;
+    verificationState !== "verified" ||
+    !counterLoaded ||
+    !connected ||
+    !!counterError ||
+    incrementPending;
   verificationRetry.hidden = verificationState !== "error" && !counterError;
   verificationRetry.disabled = verificationState === "verifying";
   verificationStatus.textContent =
-    counterError || verificationMessage ||
+    counterError ||
+    verificationMessage ||
     (incrementPending ?
-      connected ? "Saving..." : "Waiting for a connection... Keep this page open."
+      connected ? "Saving..."
+      : "Waiting for a connection... Keep this page open."
     : verificationState !== "verified" ? "Checking your browser..."
     : !connected ? "Waiting for a connection..."
     : !counterLoaded ? "Loading the thank-you count..."
@@ -111,10 +116,7 @@ async function connectCounter(forceRefresh = false) {
     }
     setVerificationStatus("verified");
   } catch {
-    setVerificationStatus(
-      "error",
-      "The browser check failed. Try again.",
-    );
+    setVerificationStatus("error", "The browser check failed. Try again.");
   }
 }
 
@@ -187,10 +189,7 @@ incrementButton.addEventListener("click", async () => {
     await increaseThanksLocally();
     generateQuote();
   } catch {
-    setVerificationStatus(
-      "error",
-      "Your thank-you wasn't saved. Try again.",
-    );
+    setVerificationStatus("error", "Your thank-you wasn't saved. Try again.");
   } finally {
     incrementPending = false;
     updateControls();
