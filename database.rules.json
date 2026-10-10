@@ -5,6 +5,6 @@
     "incremental_counter": {
       ".read": true,
       ".write": "newData.exists() && newData.isNumber() && ((!data.exists() && newData.val() === 1) || (newData.val() === data.val() + 1))"
-    } 
+    }
   }
 }

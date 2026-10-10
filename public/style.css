@@ -1,0 +1,177 @@
+body {
+  color: white;
+  font-family: "Comic Neue", "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.donation-banner {
+  background: #ffff00;
+  color: royalblue;
+  padding: 1.2rem 1rem;
+  line-height: 1.3;
+}
+
+.donation-banner a {
+  color: inherit;
+}
+
+.donation-banner-main {
+  display: block;
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  text-transform: uppercase;
+}
+
+.donation-banner-support {
+  margin: 0.5rem 0 0;
+  font-size: 1.05rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.flags {
+  height: 125px;
+}
+
+.pattern-one--bg {
+  background: url("assets/Pattern1.gif") repeat fixed center;
+  padding: 4rem;
+}
+
+.pattern-two--bg {
+  background: url("assets/Pattern2.gif") repeat fixed center;
+  padding: 0;
+  padding-top: 2rem;
+}
+
+.pattern-three--bg {
+  background: url("assets/Pattern3.gif") repeat fixed center;
+  padding: 4rem;
+}
+
+footer {
+  background: url("assets/Pattern1.gif") repeat fixed center;
+  padding: 1rem;
+}
+
+input[type="image"] {
+  padding-top: 10px;
+  width: 150px;
+}
+
+.verification {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  margin: 1rem auto;
+}
+
+.verification p {
+  margin: 0;
+}
+
+input:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.section-three-images {
+  margin-bottom: 1rem;
+}
+
+.thanks--text {
+  font-size: 1.2rem;
+}
+
+.the-pretentious-paragraph {
+  font-size: 1.7rem;
+}
+
+.the-pretentious-quote {
+  font-size: 2rem;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.blink {
+  animation: blinkingText 1.2s infinite;
+}
+
+@keyframes blinkingText {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.jusuf-box {
+  position: relative;
+  display: inline-block;
+}
+
+.jusuf-box .jusuf-text {
+  font-size: 15pt;
+  position: absolute;
+  z-index: 999;
+  margin: 0 auto;
+  left: 25%;
+  right: 0;
+  top: 22.5%;
+  text-align: center;
+  width: 60%;
+  color: black;
+}
+
+.jusuf-box img {
+  height: 300px;
+}
+
+#jusuf-right,
+#jusuf-left {
+  margin-bottom: -4px;
+  display: flex;
+  justify-content: center;
+}
+
+.reversed {
+  transform: scaleX(-1);
+}
+
+.thanks--counter::before {
+  content: "Indonesia has been thanked ";
+}
+
+.thanks--counter::after {
+  content: " times so far";
+}
+
+.thanks--counter {
+  font-size: 25pt;
+}
+
+.thank-you-heading {
+  color: yellow;
+  font-size: 35pt;
+}
+
+.thumbs-up-image {
+  height: 300px;
+}
+
+.angel-column {
+  display: flex;
+  justify-content: center;
+}

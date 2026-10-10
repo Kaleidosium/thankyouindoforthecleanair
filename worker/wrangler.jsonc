@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
+  "name": "thankyouindo-app-check",
+  "account_id": "34e1a8164bc64a89ebd693bee26d0976",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-10-10",
+  "workers_dev": true,
+  "observability": { "enabled": false },
+  "vars": {
+    "TURNSTILE_HOSTNAMES": "thankyouindoforthecleanair.pages.dev,thankyouindoforthecleanair.web.app,thankyouindoforthecleanair.firebaseapp.com",
+    "ALLOWED_ORIGINS": "https://thankyouindoforthecleanair.pages.dev,https://thankyouindoforthecleanair.web.app,https://thankyouindoforthecleanair.firebaseapp.com",
+  },
+}

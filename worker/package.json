@@ -1,0 +1,9 @@
+{
+  "name": "thankyouindo-app-check",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "test:rules": "node --test test/database-rules.integration.mjs"
+  }
+}

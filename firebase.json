@@ -3,7 +3,7 @@
     "rules": "database.rules.json"
   },
   "hosting": {
-    "public": "public",
+    "public": "hosting-redirect",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -11,10 +11,16 @@
       "LICENSE",
       "README.md"
     ],
-    "rewrites": [
+    "redirects": [
       {
-        "source": "**",
-        "destination": "/index.html"
+        "source": "/",
+        "destination": "https://thankyouindoforthecleanair.pages.dev/",
+        "type": 301
+      },
+      {
+        "source": "/:path*",
+        "destination": "https://thankyouindoforthecleanair.pages.dev/:path",
+        "type": 301
       }
     ]
   }
