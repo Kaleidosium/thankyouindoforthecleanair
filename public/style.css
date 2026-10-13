@@ -36,9 +36,9 @@ img {
 
 .flag-row {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: clamp(0.25rem, 2vw, 1rem);
-  max-width: 80rem;
+  max-width: 85rem;
   margin: 0 auto;
   align-items: end;
 }
