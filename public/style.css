@@ -36,14 +36,17 @@ img {
 
 .flag-row {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: clamp(0.25rem, 2vw, 1rem);
-  max-width: 64rem;
+  max-width: 80rem;
   margin: 0 auto;
+  align-items: end;
 }
 
 .flags {
   width: 100%;
+  max-width: 11rem;
+  justify-self: center;
 }
 
 .pattern-one--bg {
