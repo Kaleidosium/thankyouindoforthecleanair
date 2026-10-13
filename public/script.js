@@ -1,21 +1,22 @@
 import { initializeApp } from "firebase/app";
 import {
   CustomProvider,
-  initializeAppCheck,
   getToken,
+  initializeAppCheck,
 } from "firebase/app-check";
 import {
   getDatabase,
-  ref,
-  onValue,
-  increment,
-  set,
   goOffline,
   goOnline,
+  increment,
+  onValue,
+  ref,
+  set,
 } from "firebase/database";
+
 import {
-  loadTurnstile,
   createTurnstileProvider,
+  loadTurnstile,
 } from "./turnstile-app-check.js?v=20261010-2";
 
 const app = initializeApp({
@@ -59,7 +60,7 @@ function updateControls() {
     : verificationState !== "verified" ? "Checking your browser..."
     : !connected ? "Waiting for a connection..."
     : !counterLoaded ? "Loading the thank-you count..."
-    : "You can thank Indonesia now.");
+    : " ");
 }
 
 function setVerificationStatus(state, message = "") {

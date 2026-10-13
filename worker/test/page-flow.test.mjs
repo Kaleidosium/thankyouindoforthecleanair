@@ -1,6 +1,6 @@
-import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import test from "node:test";
 import vm from "node:vm";
 
 const html = await readFile(
@@ -123,8 +123,8 @@ async function page({
       }
       play() {
         state.playback.push(state.gesture);
-        return state.gesture ?
-            Promise.resolve()
+        return state.gesture
+          ? Promise.resolve()
           : Promise.reject(new Error("NotAllowedError"));
       }
     },
@@ -358,10 +358,7 @@ test("an offline pending save shows its state and cannot queue a second incremen
   assert.equal(element("verification-status").textContent, "Saving...");
   state.writes[0].resolve();
   await save;
-  assert.equal(
-    element("verification-status").textContent,
-    "You can thank Indonesia now.",
-  );
+  assert.equal(element("verification-status").textContent, " ");
   state.receiveConnection(false);
   await click();
   assert.equal(state.writes.length, 1);
