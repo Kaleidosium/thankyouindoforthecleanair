@@ -60,6 +60,11 @@ img {
   padding-top: 2rem;
 }
 
+.pattern-two--bg h2,
+.thanks--text {
+  padding-inline: clamp(1rem, 5vw, 4rem);
+}
+
 .pattern-three--bg {
   background: url("assets/Pattern3.gif") repeat fixed center;
   padding: 4rem;
